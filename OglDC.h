@@ -1,5 +1,5 @@
 /*
- *  $Id: OglDC.h,v 1.1.1.1 2002-07-25 02:14:15 ueshiba Exp $
+ *  $Id: OglDC.h,v 1.2 2002-07-25 02:38:02 ueshiba Exp $
  */
 #ifndef __TUvOglDC_h
 #define __TUvOglDC_h
