@@ -1,5 +1,5 @@
 #
-#  $Id: Makefile,v 1.6 2002-12-18 06:06:51 ueshiba Exp $
+#  $Id: Makefile,v 1.7 2004-03-08 02:06:53 ueshiba Exp $
 #
 #################################
 #  User customizable macros	#
@@ -11,8 +11,8 @@ INCDIRS		= -I. -I$(HOME)/include -I$(X11HOME)/include
 NAME		= $(shell basename $(PWD))
 
 CPPFLAGS	= -DUseXaw #-DUseShm
-CFLAGS		= -O
-CCFLAGS		= -O
+CFLAGS		= -O3
+CCFLAGS		= -O3
 
 LINKER		= $(CCC)
 
@@ -45,7 +45,7 @@ OBJS		= OglDC.o
 #########################
 #  Macros used by RCS	#
 #########################
-REV		= $(shell echo $Revision: 1.6 $	|		\
+REV		= $(shell echo $Revision: 1.7 $	|		\
 		  sed 's/evision://'		|		\
 		  awk -F"."					\
 		  '{						\
