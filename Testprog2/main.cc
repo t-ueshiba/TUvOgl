@@ -1,5 +1,5 @@
 /*
- *  $Id: main.cc,v 1.1.1.1 2002-07-25 02:14:15 ueshiba Exp $
+ *  $Id: main.cc,v 1.2 2002-07-29 00:09:06 ueshiba Exp $
  */
 #include <iomanip>
 #include <fstream>
@@ -84,6 +84,7 @@ MyCanvasPane::repaintUnderlay(int, int, int, int)
       glVertex3f(CX,	  CY,	   CZ + LZ);
     glEnd();
     glFlush();
+    _dc.swapBuffers();
 }
 
 void
@@ -172,7 +173,7 @@ main(int argc, char* argv[])
 
     v::App		vapp(argc, argv);
     Image<BGR>		image;
-    ifstream		in("/home/ueshiba/data/pbm/harumi.ppm", ios::in);
+    ifstream		in("/Users/ueshiba/data/pbm/harumi.ppm", ios::in);
     image.restore(in);
     
     int			attrs[] = {GLX_RGBA,
@@ -180,6 +181,7 @@ main(int argc, char* argv[])
 				   GLX_GREEN_SIZE,	1,
 				   GLX_BLUE_SIZE,	1,
 				   GLX_DEPTH_SIZE,	1,
+				   GLX_DOUBLEBUFFER,
 				   None};
     XVisualInfo*	vinfo = glXChooseVisual(vapp.colormap().display(),
 						vapp.colormap().vinfo().screen,
