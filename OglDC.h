@@ -1,5 +1,5 @@
 /*
- *  $Id: OglDC.h,v 1.2 2002-07-25 02:38:02 ueshiba Exp $
+ *  $Id: OglDC.h,v 1.3 2005-02-16 07:46:44 ueshiba Exp $
  */
 #ifndef __TUvOglDC_h
 #define __TUvOglDC_h
@@ -40,6 +40,8 @@ class OglDC : public CanvasPaneDC3
     GLUnurbsObj*	nurbsRenderer()		{return _nurbsRenderer;}
 
     void		swapBuffers()				const	;
+    template <class T>
+    Image<T>		getImage()				const	;
     
   protected:
     virtual void	initializeGraphics()				;

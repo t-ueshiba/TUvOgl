@@ -1,5 +1,5 @@
 /*
- *  $Id: OglDC.cc,v 1.2 2002-07-25 02:38:02 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.3 2005-02-16 07:46:44 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -8,6 +8,17 @@ namespace TU
 {
 namespace v
 {
+/************************************************************************
+*  static functions							*
+************************************************************************/
+template <class T> GLenum	format()	{return GL_LUMINANCE;}
+template <> inline GLenum	format<RGB>()	{return GL_RGB;}
+template <> inline GLenum	format<RGBA>()	{return GL_RGBA;}
+
+template <class T> GLenum	type()		{return GL_UNSIGNED_BYTE;}
+template <> inline GLenum	type<short>()	{return GL_SHORT;}
+template <> inline GLenum	type<float>()	{return GL_FLOAT;}
+    
 /************************************************************************
 *  class OglDC								*
 ************************************************************************/
@@ -196,6 +207,24 @@ OglDC::swapBuffers() const
     glXSwapBuffers(colormap().display(), drawable());
 }
 
+template <class T> Image<T>
+OglDC::getImage() const
+{
+    Image<T>	image(deviceWidth(), deviceHeight());
+    
+    for (int v = 0; v < image.height(); ++v)
+	glReadPixels(0, image.height() - 1 - v, image.width(), 1,
+		     format<T>(), type<T>(), (T*)image[v]);
+    return image;
+}
+
+void
+OglDC::initializeGraphics()
+{
+    setViewport();
+    CanvasPaneDC3::initializeGraphics();
+}
+
 OglDC&
 OglDC::setViewport()
 {
@@ -206,12 +235,20 @@ OglDC::setViewport()
     return *this;
 }
 
-void
-OglDC::initializeGraphics()
+}
+}
+#if defined(__GNUG__) || defined(__INTEL_COMPILER)
+#  include "TU/Array++.cc"
+#  include "TU/Image++.cc"
+namespace TU
 {
-    setViewport();
-    CanvasPaneDC3::initializeGraphics();
+namespace v
+{
+template Image<RGB>	OglDC::getImage<RGB>()		const	;
+template Image<RGBA>	OglDC::getImage<RGBA>()		const	;
+template Image<u_char>	OglDC::getImage<u_char>()	const	;
+template Image<short>	OglDC::getImage<short>()	const	;
+template Image<float>	OglDC::getImage<float>()	const	;
 }
-
 }
-}
+#endif
