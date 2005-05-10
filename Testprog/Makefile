@@ -1,5 +1,5 @@
 #
-#  $Id: Makefile,v 1.3 2004-03-08 02:07:11 ueshiba Exp $
+#  $Id: Makefile,v 1.4 2005-05-10 02:51:14 ueshiba Exp $
 #
 #################################
 #  User customizable macros	#
@@ -15,8 +15,13 @@ CPPFLAGS	= -DUseXaw
 CFLAGS		= -g
 CCFLAGS		= -g
 LDFLAGS		= -L$(LIBDIR) -L$(X11HOME)/lib
-
 LINKER		= $(CCC)
+ifeq ($(CCC), icc)
+#  CCFLAGS	= -cxxlib-icc -O3 -parallel
+  CCFLAGS	= -cxxlib-icc -g
+  LDFLAGS      += -cxxlib-icc
+  LINKER	= icpc
+endif
 
 #########################
 #  Macros set by mkmf	#
@@ -50,7 +55,7 @@ OBJS		= main.o
 #########################
 #  Macros used by RCS	#
 #########################
-REV		= $(shell echo $Revision: 1.3 $	|		\
+REV		= $(shell echo $Revision: 1.4 $	|		\
 		  sed 's/evision://'		|		\
 		  awk -F"."					\
 		  '{						\
@@ -60,7 +65,6 @@ REV		= $(shell echo $Revision: 1.3 $	|		\
 		  }')
 
 include $(PROJECT)/lib/p.mk
-include $(PROJECT)/lib/RCS.mk
 ###
 main.o: /home/ueshiba/include/TU/v/App.h \
 	/home/ueshiba/include/TU/v/TUv++.h \
