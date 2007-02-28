@@ -1,5 +1,5 @@
 /*
- *  $Id: OglDC.cc,v 1.3 2005-02-16 07:46:44 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.4 2007-02-28 00:18:40 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -238,7 +238,6 @@ OglDC::setViewport()
 }
 }
 #if defined(__GNUG__) || defined(__INTEL_COMPILER)
-#  include "TU/Array++.cc"
 #  include "TU/Image++.cc"
 namespace TU
 {
