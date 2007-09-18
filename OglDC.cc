@@ -1,5 +1,5 @@
 /*
- *  $Id: OglDC.cc,v 1.4 2007-02-28 00:18:40 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.5 2007-09-18 00:34:27 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -57,9 +57,17 @@ OglDC::setInternal(int u0, int v0, double ku, double kv,
     matrix[1][1] = -2.0 * kv / height();
     matrix[2][0] =  2.0 * u0 / width()  - 1.0;
     matrix[2][1] = -2.0 * v0 / height() + 1.0;
-    matrix[2][2] = (far + near) / (far - near);
     matrix[2][3] =  1.0;
-    matrix[3][2] = -2.0 * far * near / (far - near);
+    if (far > near)
+    {
+	matrix[2][2] = (far + near) / (far - near);
+	matrix[3][2] = -2.0 * far * near / (far - near);
+    }
+    else
+    {
+	matrix[2][2] =  1.0;
+	matrix[3][2] = -2.0 * near;
+    }
 		   matrix[0][1] = matrix[0][2] = matrix[0][3] =
     matrix[1][0]	        = matrix[1][2] = matrix[1][3] =
     matrix[3][0] = matrix[3][1]		       = matrix[3][3] = 0.0;
@@ -106,7 +114,8 @@ OglDC::getInternal(int& u0, int& v0, double& ku, double& kv,
     u0	 = (1.0 + matrix[2][0]) * width()  / 2.0;
     v0	 = (1.0 - matrix[2][1]) * height() / 2.0;
     near =	 -matrix[3][2] / (1.0 + matrix[2][2]);
-    far  =	  matrix[3][2] / (1.0 - matrix[2][2]);
+    far  = (matrix[2][2] != 1.0 ?
+		  matrix[3][2] / (1.0 - matrix[2][2]) : 0.0);
     
     return *this;
 }

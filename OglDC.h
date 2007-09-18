@@ -1,5 +1,5 @@
 /*
- *  $Id: OglDC.h,v 1.3 2005-02-16 07:46:44 ueshiba Exp $
+ *  $Id: OglDC.h,v 1.4 2007-09-18 00:34:27 ueshiba Exp $
  */
 #ifndef __TUvOglDC_h
 #define __TUvOglDC_h
@@ -26,7 +26,7 @@ class OglDC : public CanvasPaneDC3
 				u_int mul,   u_int div)			;
     virtual DC3&	setInternal(int	   u0,	 int	v0,
 				    double ku,	 double kv,
-				    double near, double far)		;
+				    double near, double far=0.0)	;
     virtual DC3&	setExternal(const Vector<double>& t,
 				    const Matrix<double>& Rt)		;
     virtual const DC3&	getInternal(int&    u0,	  int&	  v0,
