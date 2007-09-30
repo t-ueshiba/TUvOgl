@@ -1,5 +1,5 @@
 /*
- *  $Id: OglDC.cc,v 1.5 2007-09-18 00:34:27 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.6 2007-09-30 23:30:09 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -11,13 +11,13 @@ namespace v
 /************************************************************************
 *  static functions							*
 ************************************************************************/
-template <class T> GLenum	format()	{return GL_LUMINANCE;}
-template <> inline GLenum	format<RGB>()	{return GL_RGB;}
-template <> inline GLenum	format<RGBA>()	{return GL_RGBA;}
-
-template <class T> GLenum	type()		{return GL_UNSIGNED_BYTE;}
-template <> inline GLenum	type<short>()	{return GL_SHORT;}
-template <> inline GLenum	type<float>()	{return GL_FLOAT;}
+template <class T> static inline GLenum format()	{return GL_LUMINANCE;}
+template <>	   static inline GLenum format<RGB>()	{return GL_RGB;}
+template <>	   static inline GLenum format<RGBA>()	{return GL_RGBA;}
+template <class T> static inline GLenum type()		{return
+							     GL_UNSIGNED_BYTE;}
+template <>	   static inline GLenum type<short>()	{return GL_SHORT;}
+template <>	   static inline GLenum type<float>()	{return GL_FLOAT;}
     
 /************************************************************************
 *  class OglDC								*
