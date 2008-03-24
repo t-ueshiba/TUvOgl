@@ -1,6 +1,7 @@
 /*
- *  $Id: main.cc,v 1.2 2002-07-29 00:09:06 ueshiba Exp $
+ *  $Id: main.cc,v 1.3 2008-03-24 00:47:50 ueshiba Exp $
  */
+#include <fstream>
 #include "TU/v/App.h"
 #include "TU/v/CmdPane.h"
 #include "TU/v/OglDC.h"
@@ -16,6 +17,7 @@ static MenuDef FileMenu[] =
 {
     {"New",  M_New,  false, noSub},
     {"Open", M_Open, false, noSub},
+    {"Save", M_Save, false, noSub},
     {"-",    M_Line, false, noSub},
     {"Quit", M_Exit, false, noSub},
     EndOfMenu
@@ -64,7 +66,9 @@ MyCanvasPane::repaintUnderlay(int, int, int, int)
       glVertex3f(CX,	  CY,	   CZ + LZ);
     glEnd();
     glFlush();
+#ifndef SingleBuffer
     _dc.swapBuffers();
+#endif
 }
 
 void
@@ -115,6 +119,14 @@ MyCmdWindow::callback(CmdId id, CmdVal val)
       case M_Exit:
 	app().exit();
 	break;
+
+      case M_Save:
+      {
+	std::ofstream	out("dump.pbm");
+	Image<RGB>	image = _canvas.dc().getImage<RGB>();
+	image.save(out, ImageBase::RGB_24);
+      }
+        break;
     }
 }
  
@@ -136,7 +148,9 @@ main(int argc, char* argv[])
 				   GLX_GREEN_SIZE,	1,
 				   GLX_BLUE_SIZE,	1,
 				   GLX_DEPTH_SIZE,	1,
+#ifndef SingleBuffer
 				   GLX_DOUBLEBUFFER,
+#endif
 				   None};
     XVisualInfo*	vinfo = glXChooseVisual(vapp.colormap().display(),
 						vapp.colormap().vinfo().screen,

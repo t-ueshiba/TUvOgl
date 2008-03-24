@@ -25,7 +25,7 @@
  *  The copyright holders or the creator are not responsible for any
  *  damages in the use of this program.
  *  
- *  $Id: OglDC.cc,v 1.7 2007-11-29 07:09:53 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.8 2008-03-24 00:47:30 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -38,12 +38,12 @@ namespace v
 *  static functions							*
 ************************************************************************/
 template <class T> static inline GLenum format()	{return GL_LUMINANCE;}
-template <>	   static inline GLenum format<RGB>()	{return GL_RGB;}
-template <>	   static inline GLenum format<RGBA>()	{return GL_RGBA;}
+template <>		  inline GLenum format<RGB>()	{return GL_RGB;}
+template <>		  inline GLenum format<RGBA>()	{return GL_RGBA;}
 template <class T> static inline GLenum type()		{return
 							     GL_UNSIGNED_BYTE;}
-template <>	   static inline GLenum type<short>()	{return GL_SHORT;}
-template <>	   static inline GLenum type<float>()	{return GL_FLOAT;}
+template <>		  inline GLenum type<short>()	{return GL_SHORT;}
+template <>		  inline GLenum type<float>()	{return GL_FLOAT;}
     
 /************************************************************************
 *  class OglDC								*
