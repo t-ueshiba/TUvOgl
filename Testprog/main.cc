@@ -1,5 +1,5 @@
 /*
- *  $Id: main.cc,v 1.3 2008-03-24 00:47:50 ueshiba Exp $
+ *  $Id: main.cc,v 1.4 2008-05-27 11:38:16 ueshiba Exp $
  */
 #include <fstream>
 #include "TU/v/App.h"
@@ -40,17 +40,17 @@ class MyCanvasPane : public CanvasPane
 
     OglDC&	dc()						{return _dc;}
     
-    virtual void	repaintUnderlay(int x, int y, int w, int h)	;
+    virtual void	repaintUnderlay()			;
 
   protected:
-    virtual void	initializeGraphics()				;
+    virtual void	initializeGraphics()			;
     
   private:
     OglDC		_dc;
 };
 
 void
-MyCanvasPane::repaintUnderlay(int, int, int, int)
+MyCanvasPane::repaintUnderlay()
 {
     static const GLfloat	CX = -32.0, CY = 128.0, CZ = -16.0,
 				LX =  64.0, LY =  16.0, LZ =  32.0;

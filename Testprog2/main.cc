@@ -1,5 +1,5 @@
 /*
- *  $Id: main.cc,v 1.2 2002-07-29 00:09:06 ueshiba Exp $
+ *  $Id: main.cc,v 1.3 2008-05-27 11:38:25 ueshiba Exp $
  */
 #include <iomanip>
 #include <fstream>
@@ -54,11 +54,11 @@ class MyCanvasPane : public CanvasPane
 
     OglDC&		dc()					{return _dc;}
     
-    virtual void	repaintUnderlay(int x, int y, int w, int h)	;
-    virtual void	repaintOverlay(int x, int y, int w, int h)	;
+    virtual void	repaintUnderlay()			;
+    virtual void	repaintOverlay()			;
 
   protected:
-    virtual void	initializeGraphics()				;
+    virtual void	initializeGraphics()			;
     
   private:
     OglDC		_dc;
@@ -66,7 +66,7 @@ class MyCanvasPane : public CanvasPane
 };
 
 void
-MyCanvasPane::repaintUnderlay(int, int, int, int)
+MyCanvasPane::repaintUnderlay()
 {
     static const GLfloat	CX = -32.0, CY = 128.0, CZ = -16.0,
 				LX =  64.0, LY =  16.0, LZ =  32.0;
@@ -88,7 +88,7 @@ MyCanvasPane::repaintUnderlay(int, int, int, int)
 }
 
 void
-MyCanvasPane::repaintOverlay(int, int, int, int)
+MyCanvasPane::repaintOverlay()
 {
 }
 
@@ -173,7 +173,7 @@ main(int argc, char* argv[])
 
     v::App		vapp(argc, argv);
     Image<BGR>		image;
-    ifstream		in("/Users/ueshiba/data/pbm/harumi.ppm", ios::in);
+    ifstream		in("../../../data/pbm/harumi.ppm", ios::in);
     image.restore(in);
     
     int			attrs[] = {GLX_RGBA,
@@ -200,7 +200,3 @@ main(int argc, char* argv[])
 
     return 0;
 }
-
-#ifdef __GNUG__
-#  include "TU/Array++.cc"
-#endif

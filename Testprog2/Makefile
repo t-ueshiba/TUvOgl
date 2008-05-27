@@ -1,5 +1,5 @@
 #
-#  $Id: Makefile,v 1.4 2007-09-30 23:30:09 ueshiba Exp $
+#  $Id: Makefile,v 1.5 2008-05-27 11:38:25 ueshiba Exp $
 #
 #################################
 #  User customizable macros	#
@@ -27,14 +27,15 @@ endif
 #  Macros set by mkmf	#
 #########################
 SUFFIX		= .cc:sC
-EXTHDRS		= /home/ueshiba/include/TU/Array++.cc \
-		/home/ueshiba/include/TU/Array++.h \
+EXTHDRS		= /home/ueshiba/include/TU/Array++.h \
 		/home/ueshiba/include/TU/Geometry++.h \
 		/home/ueshiba/include/TU/Image++.h \
 		/home/ueshiba/include/TU/List++.h \
 		/home/ueshiba/include/TU/Manip.h \
+		/home/ueshiba/include/TU/Minimize++.h \
 		/home/ueshiba/include/TU/Vector++.h \
 		/home/ueshiba/include/TU/types.h \
+		/home/ueshiba/include/TU/utility.h \
 		/home/ueshiba/include/TU/v/App.h \
 		/home/ueshiba/include/TU/v/CanvasPane.h \
 		/home/ueshiba/include/TU/v/CanvasPaneDC.h \
@@ -56,7 +57,7 @@ OBJS		= main.o
 #########################
 #  Macros used by RCS	#
 #########################
-REV		= $(shell echo $Revision: 1.4 $	|		\
+REV		= $(shell echo $Revision: 1.5 $	|		\
 		  sed 's/evision://'		|		\
 		  awk -F"."					\
 		  '{						\
@@ -71,10 +72,12 @@ main.o: /home/ueshiba/include/TU/v/App.h \
 	/home/ueshiba/include/TU/v/TUv++.h \
 	/home/ueshiba/include/TU/v/Colormap.h \
 	/home/ueshiba/include/TU/Image++.h \
+	/home/ueshiba/include/TU/Geometry++.h \
+	/home/ueshiba/include/TU/utility.h \
+	/home/ueshiba/include/TU/Minimize++.h \
 	/home/ueshiba/include/TU/Vector++.h \
 	/home/ueshiba/include/TU/Array++.h /home/ueshiba/include/TU/types.h \
 	/home/ueshiba/include/TU/List++.h \
-	/home/ueshiba/include/TU/Geometry++.h \
 	/home/ueshiba/include/TU/v/Widget-Xaw.h \
 	/home/ueshiba/include/TU/v/CmdPane.h \
 	/home/ueshiba/include/TU/v/CmdWindow.h \
@@ -84,5 +87,4 @@ main.o: /home/ueshiba/include/TU/v/App.h \
 	/home/ueshiba/include/TU/v/XDC.h /home/ueshiba/include/TU/v/DC.h \
 	/home/ueshiba/include/TU/Manip.h \
 	/home/ueshiba/include/TU/v/CanvasPane.h \
-	/home/ueshiba/include/TU/v/Menu.h /home/ueshiba/include/TU/v/DC3.h \
-	/home/ueshiba/include/TU/Array++.cc
+	/home/ueshiba/include/TU/v/Menu.h /home/ueshiba/include/TU/v/DC3.h
