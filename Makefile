@@ -1,22 +1,28 @@
 #
-#  $Id: Makefile,v 1.13 2007-11-29 07:09:53 ueshiba Exp $
+#  $Id: Makefile,v 1.14 2008-06-09 00:10:43 ueshiba Exp $
 #
 #################################
 #  User customizable macros	#
 #################################
 DEST		= $(LIBDIR)
 INCDIR		= $(HOME)/include/TU/v
-INCDIRS		= -I$(HOME)/include -I$(X11HOME)/include
+INCDIRS		= -I. -I$(HOME)/include -I$(X11HOME)/include
 
 NAME		= $(shell basename $(PWD))
 
-CPPFLAGS	= 
-CFLAGS		= -O -g
-CCFLAGS		= -O -g
+CPPFLAGS	=
+CFLAGS		= -g
 ifeq ($(CCC), icpc)
-  CCFLAGS	= -O3 -parallel
+  ifeq ($(OSTYPE), darwin)
+    CPPFLAGS   += -DSSE3
+    CFLAGS	= -O3 -axP -parallel -ip
+  else
+    CPPFLAGS   += -DSSE2
+    CFLAGS	= -O3 -tpp7 -xW -ip
+  endif
 endif
-LDFLAGS		= $(CCFLAGS)
+CCFLAGS		= $(CFLAGS)
+
 LINKER		= $(CCC)
 
 #########################
@@ -52,7 +58,7 @@ OBJS		= OglDC.o
 #########################
 #  Macros used by RCS	#
 #########################
-REV		= $(shell echo $Revision: 1.13 $	|		\
+REV		= $(shell echo $Revision: 1.14 $	|		\
 		  sed 's/evision://'		|		\
 		  awk -F"."					\
 		  '{						\
