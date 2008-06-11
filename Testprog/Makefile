@@ -1,5 +1,5 @@
 #
-#  $Id: Makefile,v 1.7 2007-11-29 07:10:06 ueshiba Exp $
+#  $Id: Makefile,v 1.8 2008-06-11 08:04:32 ueshiba Exp $
 #
 #################################
 #  User customizable macros	#
@@ -11,7 +11,7 @@ PROGRAM		= ogltest
 LIBS		= -lTUOgl++ -lTUv++ -lTUTools++ \
 		  -lGLU -lGL -lXaw3d -lXt -lXext -lXmu -lX11
 
-CPPFLAGS	=
+CPPFLAGS	= -DSTEREO
 CFLAGS		= -g
 CCFLAGS		= -g
 LDFLAGS		= -L$(LIBDIR) -L$(X11HOME)/lib
@@ -57,7 +57,7 @@ OBJS		= main.o
 #########################
 #  Macros used by RCS	#
 #########################
-REV		= $(shell echo $Revision: 1.7 $	|		\
+REV		= $(shell echo $Revision: 1.8 $	|		\
 		  sed 's/evision://'		|		\
 		  awk -F"."					\
 		  '{						\

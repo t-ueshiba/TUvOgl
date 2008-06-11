@@ -1,5 +1,5 @@
 /*
- *  $Id: main.cc,v 1.4 2008-05-27 11:38:16 ueshiba Exp $
+ *  $Id: main.cc,v 1.5 2008-06-11 08:04:32 ueshiba Exp $
  */
 #include <fstream>
 #include "TU/v/App.h"
@@ -55,6 +55,15 @@ MyCanvasPane::repaintUnderlay()
     static const GLfloat	CX = -32.0, CY = 128.0, CZ = -16.0,
 				LX =  64.0, LY =  16.0, LZ =  32.0;
 
+#ifdef STEREO
+    const double	parallax = 10.0;
+
+    _dc << v::axis(DC3::X);
+    glPushMatrix();
+    _dc << v::translate(-parallax / 2.0);
+    glDrawBuffer(GL_BACK_LEFT);
+    glNewList(1, GL_COMPILE_AND_EXECUTE);
+#endif
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_LINE_STRIP);
       glColor3f(1.0, 0.0, 0.0);
@@ -65,10 +74,15 @@ MyCanvasPane::repaintUnderlay()
       glColor3f(0.0, 0.0, 1.0);
       glVertex3f(CX,	  CY,	   CZ + LZ);
     glEnd();
-    glFlush();
-#ifndef SingleBuffer
-    _dc.swapBuffers();
+#ifdef STEREO
+    glEndList();
+
+    _dc << v::translate(parallax);
+    glDrawBuffer(GL_BACK_RIGHT);
+    glCallList(1);
+    glPopMatrix();
 #endif
+    _dc.swapBuffers();
 }
 
 void
@@ -148,8 +162,9 @@ main(int argc, char* argv[])
 				   GLX_GREEN_SIZE,	1,
 				   GLX_BLUE_SIZE,	1,
 				   GLX_DEPTH_SIZE,	1,
-#ifndef SingleBuffer
 				   GLX_DOUBLEBUFFER,
+#ifdef STEREO
+				   GLX_STEREO,
 #endif
 				   None};
     XVisualInfo*	vinfo = glXChooseVisual(vapp.colormap().display(),
