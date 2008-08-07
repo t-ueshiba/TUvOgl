@@ -25,7 +25,7 @@
  *  The copyright holders or the creator are not responsible for any
  *  damages in the use of this program.
  *  
- *  $Id: OglDC.cc,v 1.8 2008-03-24 00:47:30 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.9 2008-08-07 08:17:02 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -273,7 +273,6 @@ OglDC::setViewport()
 }
 }
 #if defined(__GNUG__) || defined(__INTEL_COMPILER)
-#  include "TU/Image++.cc"
 namespace TU
 {
 namespace v
