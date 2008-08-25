@@ -1,5 +1,5 @@
 #
-#  $Id: Makefile,v 1.16 2008-08-25 05:28:49 ueshiba Exp $
+#  $Id: Makefile,v 1.17 2008-08-25 05:49:38 ueshiba Exp $
 #
 #################################
 #  User customizable macros	#
@@ -15,9 +15,9 @@ CFLAGS		= -g
 ifeq ($(CCC), icpc)
   CFLAGS	= -O3
   ifeq ($(OSTYPE), darwin)
-    CPPFLAGS   += -DSSE3
+    CPPFLAGS   += -DSSE3 -axP -ip -parallel
   else
-    CPPFLAGS   += -DSSE2
+    CPPFLAGS   += -DSSE2 -xN -ip
   endif
 endif
 CCFLAGS		= $(CFLAGS)
@@ -55,7 +55,7 @@ OBJS		= OglDC.o
 #########################
 #  Macros used by RCS	#
 #########################
-REV		= $(shell echo $Revision: 1.16 $	|		\
+REV		= $(shell echo $Revision: 1.17 $	|		\
 		  sed 's/evision://'		|		\
 		  awk -F"."					\
 		  '{						\
