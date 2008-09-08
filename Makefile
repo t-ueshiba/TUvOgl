@@ -1,5 +1,5 @@
 #
-#  $Id: Makefile,v 1.20 2008-09-03 23:33:31 ueshiba Exp $
+#  $Id: Makefile,v 1.21 2008-09-08 08:16:35 ueshiba Exp $
 #
 #################################
 #  User customizable macros	#
@@ -33,10 +33,8 @@ EXTHDRS		= /home/ueshiba/include/TU/Array++.h \
 		/home/ueshiba/include/TU/Image++.h \
 		/home/ueshiba/include/TU/List.h \
 		/home/ueshiba/include/TU/Manip.h \
-		/home/ueshiba/include/TU/Minimize.h \
 		/home/ueshiba/include/TU/Vector++.h \
 		/home/ueshiba/include/TU/types.h \
-		/home/ueshiba/include/TU/utility.h \
 		/home/ueshiba/include/TU/v/CanvasPane.h \
 		/home/ueshiba/include/TU/v/CanvasPaneDC.h \
 		/home/ueshiba/include/TU/v/CanvasPaneDC3.h \
@@ -55,7 +53,7 @@ OBJS		= OglDC.o
 #########################
 #  Macros used by RCS	#
 #########################
-REV		= $(shell echo $Revision: 1.20 $	|		\
+REV		= $(shell echo $Revision: 1.21 $	|		\
 		  sed 's/evision://'		|		\
 		  awk -F"."					\
 		  '{						\
@@ -70,8 +68,6 @@ OglDC.o: TU/v/OglDC.h /home/ueshiba/include/TU/v/CanvasPaneDC3.h \
 	/home/ueshiba/include/TU/v/CanvasPaneDC.h \
 	/home/ueshiba/include/TU/v/XDC.h /home/ueshiba/include/TU/v/DC.h \
 	/home/ueshiba/include/TU/Geometry++.h \
-	/home/ueshiba/include/TU/utility.h \
-	/home/ueshiba/include/TU/Minimize.h \
 	/home/ueshiba/include/TU/Vector++.h \
 	/home/ueshiba/include/TU/Array++.h /home/ueshiba/include/TU/types.h \
 	/home/ueshiba/include/TU/Image++.h /home/ueshiba/include/TU/Manip.h \
