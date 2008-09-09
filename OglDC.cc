@@ -25,7 +25,7 @@
  *  The copyright holders or the creator are not responsible for any
  *  damages in the use of this program.
  *  
- *  $Id: OglDC.cc,v 1.9 2008-08-07 08:17:02 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.10 2008-09-09 01:41:54 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -106,7 +106,7 @@ OglDC::setInternal(int u0, int v0, double ku, double kv,
 }
 
 DC3&
-OglDC::setExternal(const Vector<double>& t, const Matrix<double>& Rt)
+OglDC::setExternal(const Point3d& t, const Matrix33d& Rt)
 {
     makeCurrent();
 
@@ -147,13 +147,12 @@ OglDC::getInternal(int& u0, int& v0, double& ku, double& kv,
 }
 
 const DC3&
-OglDC::getExternal(Vector<double>& t, Matrix<double>& Rt) const
+OglDC::getExternal(Point3d& t, Matrix33d& Rt) const
 {
     makeCurrent();
 
     GLdouble	matrix[4][4];
     glGetDoublev(GL_MODELVIEW_MATRIX, matrix[0]);
-    Rt.resize(3, 3);
     Rt[0][0] = matrix[0][0];
     Rt[0][1] = matrix[1][0];
     Rt[0][2] = matrix[2][0];
@@ -163,7 +162,6 @@ OglDC::getExternal(Vector<double>& t, Matrix<double>& Rt) const
     Rt[2][0] = matrix[0][2];
     Rt[2][1] = matrix[1][2];
     Rt[2][2] = matrix[2][2];
-    t.resize(3);
     t[0] = -matrix[3][0];
     t[1] = -matrix[3][1];
     t[2] = -matrix[3][2];

@@ -25,7 +25,7 @@
  *  The copyright holders or the creator are not responsible for any
  *  damages in the use of this program.
  *  
- *  $Id: OglDC.h,v 1.5 2007-11-29 07:09:53 ueshiba Exp $
+ *  $Id: OglDC.h,v 1.6 2008-09-09 01:41:55 ueshiba Exp $
  */
 #ifndef __TUvOglDC_h
 #define __TUvOglDC_h
@@ -53,13 +53,12 @@ class OglDC : public CanvasPaneDC3
     virtual DC3&	setInternal(int	   u0,	 int	v0,
 				    double ku,	 double kv,
 				    double near, double far=0.0)	;
-    virtual DC3&	setExternal(const Vector<double>& t,
-				    const Matrix<double>& Rt)		;
+    virtual DC3&	setExternal(const Point3d& t,
+				    const Matrix33d& Rt)		;
     virtual const DC3&	getInternal(int&    u0,	  int&	  v0,
 				    double& ku,	  double& kv,
 				    double& near, double& far)	const	;
-    virtual const DC3&	getExternal(Vector<double>& t,
-				    Matrix<double>& Rt)	const	;
+    virtual const DC3&	getExternal(Point3d& t, Matrix33d& Rt)	const	;
     virtual DC3&	translate(double d)				;
     virtual DC3&	rotate(double angle)				;
 
