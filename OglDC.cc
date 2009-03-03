@@ -25,7 +25,7 @@
  *  The copyright holders or the creator are not responsible for any
  *  damages in the use of this program.
  *  
- *  $Id: OglDC.cc,v 1.10 2008-09-09 01:41:54 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.11 2009-03-03 01:00:02 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -55,7 +55,7 @@ OglDC::OglDC(CanvasPane& parentCanvasPane, u_int w, u_int h)
 			   (XVisualInfo*)&(colormap().vinfo()), 0, True)),
      _nurbsRenderer(gluNewNurbsRenderer())
 {
-    XtVaSetValues(widget(), XtNbackingStore, NotUseful, NULL);
+    XtVaSetValues(widget(), XtNbackingStore, NotUseful, Null);
 }
 
 OglDC::~OglDC()
