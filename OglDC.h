@@ -25,7 +25,7 @@
  *  The copyright holders or the creator are not responsible for any
  *  damages in the use of this program.
  *  
- *  $Id: OglDC.h,v 1.6 2008-09-09 01:41:55 ueshiba Exp $
+ *  $Id: OglDC.h,v 1.7 2009-08-13 23:03:09 ueshiba Exp $
  */
 #ifndef __TUvOglDC_h
 #define __TUvOglDC_h
@@ -45,11 +45,11 @@ class OglDC : public CanvasPaneDC3
 {
   public:
     OglDC(CanvasPane& parentCanvasPane,
-	     u_int width=0, u_int height=0)				;
+	  u_int width=0, u_int height=0, u_int mul=1, u_int div=1)	;
     virtual		~OglDC()					;
     
     virtual DC&	setSize(u_int width, u_int height,
-				u_int mul,   u_int div)			;
+			u_int mul,   u_int div)				;
     virtual DC3&	setInternal(int	   u0,	 int	v0,
 				    double ku,	 double kv,
 				    double near, double far=0.0)	;

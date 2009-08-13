@@ -25,7 +25,7 @@
  *  The copyright holders or the creator are not responsible for any
  *  damages in the use of this program.
  *  
- *  $Id: OglDC.cc,v 1.11 2009-03-03 01:00:02 ueshiba Exp $
+ *  $Id: OglDC.cc,v 1.12 2009-08-13 23:03:09 ueshiba Exp $
  */
 #include "TU/v/OglDC.h"
 #include <X11/Xmu/Converters.h>
@@ -48,9 +48,10 @@ template <>		  inline GLenum type<float>()	{return GL_FLOAT;}
 /************************************************************************
 *  class OglDC								*
 ************************************************************************/
-OglDC::OglDC(CanvasPane& parentCanvasPane, u_int w, u_int h)
-    :CanvasPaneDC(parentCanvasPane, w, h),
-     CanvasPaneDC3(parentCanvasPane, w, h),
+OglDC::OglDC(CanvasPane& parentCanvasPane, u_int w, u_int h,
+	     u_int mul, u_int div)
+    :CanvasPaneDC(parentCanvasPane, w, h, mul, div),
+     CanvasPaneDC3(parentCanvasPane, w, h, mul, div),
      _ctx(glXCreateContext(colormap().display(),
 			   (XVisualInfo*)&(colormap().vinfo()), 0, True)),
      _nurbsRenderer(gluNewNurbsRenderer())
