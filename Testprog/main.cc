@@ -1,5 +1,5 @@
 /*
- *  $Id: main.cc,v 1.5 2008-06-11 08:04:32 ueshiba Exp $
+ *  $Id: main.cc,v 1.6 2011-07-21 23:41:13 ueshiba Exp $
  */
 #include <fstream>
 #include "TU/v/App.h"
@@ -56,7 +56,7 @@ MyCanvasPane::repaintUnderlay()
 				LX =  64.0, LY =  16.0, LZ =  32.0;
 
 #ifdef STEREO
-    const double	parallax = 10.0;
+    const double	parallax = 5.0;
 
     _dc << v::axis(DC3::X);
     glPushMatrix();
