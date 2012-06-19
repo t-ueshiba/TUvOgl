@@ -1,5 +1,5 @@
 /*
- *  $Id: main.cc,v 1.6 2011-07-21 23:41:13 ueshiba Exp $
+ *  $Id: main.cc,v 1.7 2012-06-19 08:36:48 ueshiba Exp $
  */
 #include <fstream>
 #include "TU/v/App.h"
@@ -35,8 +35,9 @@ static CmdDef MainMenu[] =
 class MyCanvasPane : public CanvasPane
 {
   public:
-    MyCanvasPane(Window& parentWin)
-	:CanvasPane(parentWin, 640, 480), _dc(*this)		{}
+    MyCanvasPane(Window& parentWin, double parallax)
+	:CanvasPane(parentWin, 640, 480),
+	 _dc(*this), _parallax(parallax)			{}
 
     OglDC&	dc()						{return _dc;}
     
@@ -47,6 +48,7 @@ class MyCanvasPane : public CanvasPane
     
   private:
     OglDC		_dc;
+    const double	_parallax;
 };
 
 void
@@ -55,15 +57,15 @@ MyCanvasPane::repaintUnderlay()
     static const GLfloat	CX = -32.0, CY = 128.0, CZ = -16.0,
 				LX =  64.0, LY =  16.0, LZ =  32.0;
 
-#ifdef STEREO
-    const double	parallax = 5.0;
+    if (_parallax > 0)
+    {
+	_dc << v::axis(DC3::X);
+	glPushMatrix();
+	_dc << v::translate(-_parallax / 2.0);
+	glDrawBuffer(GL_BACK_LEFT);
+	glNewList(1, GL_COMPILE_AND_EXECUTE);
+    }
 
-    _dc << v::axis(DC3::X);
-    glPushMatrix();
-    _dc << v::translate(-parallax / 2.0);
-    glDrawBuffer(GL_BACK_LEFT);
-    glNewList(1, GL_COMPILE_AND_EXECUTE);
-#endif
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_LINE_STRIP);
       glColor3f(1.0, 0.0, 0.0);
@@ -74,14 +76,18 @@ MyCanvasPane::repaintUnderlay()
       glColor3f(0.0, 0.0, 1.0);
       glVertex3f(CX,	  CY,	   CZ + LZ);
     glEnd();
-#ifdef STEREO
-    glEndList();
 
-    _dc << v::translate(parallax);
-    glDrawBuffer(GL_BACK_RIGHT);
-    glCallList(1);
-    glPopMatrix();
-#endif
+    if (_parallax > 0)
+    {
+	glEndList();
+
+	_dc << v::translate(_parallax);
+	glDrawBuffer(GL_BACK_RIGHT);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glCallList(1);
+	glPopMatrix();
+    }
+
     _dc.swapBuffers();
 }
 
@@ -100,10 +106,11 @@ class MyCmdWindow : public CmdWindow
     MyCmdWindow(App&			parentApp,
 		const char*		name,
 		const XVisualInfo*	vinfo,
-		Colormap::Mode	mode,
+		Colormap::Mode		mode,
 		u_int			resolution,
 		u_int			underlayCmapDim,
-		u_int			overlayCmapDim)		;
+		u_int			overlayCmapDim,
+		double			parallax)		;
 
     virtual void	callback(CmdId, CmdVal)			;
     
@@ -115,10 +122,11 @@ class MyCmdWindow : public CmdWindow
 MyCmdWindow::MyCmdWindow(App& parentApp, const char* name,
 			 const XVisualInfo* vinfo, Colormap::Mode mode,
 			 u_int resolution,
-			 u_int underlayCmapDim, u_int overlayCmapDim)
+			 u_int underlayCmapDim, u_int overlayCmapDim,
+			 double parallax)
     :CmdWindow(parentApp, name, vinfo, mode,
 		  resolution, underlayCmapDim, overlayCmapDim),
-     _menu(*this, MainMenu), _canvas(*this)
+     _menu(*this, MainMenu), _canvas(*this, parallax)
 {
     _menu.place(0, 0, 1, 1);
     _canvas.place(0, 1, 1, 1);
@@ -156,17 +164,32 @@ main(int argc, char* argv[])
     using namespace	std;
 
     v::App		vapp(argc, argv);
+    const double	PARALLAX = 5.0;
+    double		parallax = -1;
+    extern char*	optarg;
 
+    for (int c; (c = getopt(argc, argv, "s")) != -1; )
+	switch (c)
+	{
+	  case 's':
+	    parallax = PARALLAX;
+	    break;
+	}
+    
     int			attrs[] = {GLX_RGBA,
 				   GLX_RED_SIZE,	1,
 				   GLX_GREEN_SIZE,	1,
 				   GLX_BLUE_SIZE,	1,
 				   GLX_DEPTH_SIZE,	1,
 				   GLX_DOUBLEBUFFER,
-#ifdef STEREO
 				   GLX_STEREO,
-#endif
 				   None};
+    if (parallax <= 0.0)
+    {
+	const int	nattrs = sizeof(attrs) / sizeof(attrs[0]);
+	attrs[nattrs - 2] = None;
+    }
+    
     XVisualInfo*	vinfo = glXChooseVisual(vapp.colormap().display(),
 						vapp.colormap().vinfo().screen,
 						attrs);
@@ -177,7 +200,7 @@ main(int argc, char* argv[])
     }
     
     v::MyCmdWindow	myWin0(vapp, "OpenGL test", vinfo,
-			       v::Colormap::RGBColor, 16, 0, 0);
+			       v::Colormap::RGBColor, 16, 0, 0, parallax);
     vapp.run();
 
     cerr << "Loop exited!" << endl;
