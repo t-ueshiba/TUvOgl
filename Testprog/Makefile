@@ -15,7 +15,7 @@ ifeq ($(OSTYPE), darwin)
 #  LIBS	       += -framework IOKit -framework CoreFoundation
 endif
 
-CPPFLAGS	= -DSTEREO
+CPPFLAGS	= #-DSTEREO
 CFLAGS		= -g
 NVCCFLAGS	= -g
 ifeq ($(CCC), icpc)
