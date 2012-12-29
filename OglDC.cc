@@ -248,7 +248,7 @@ OglDC::getImage() const
     
     for (int v = 0; v < image.height(); ++v)
 	glReadPixels(0, image.height() - 1 - v, image.width(), 1,
-		     format<T>(), type<T>(), image[v].ptr());
+		     format<T>(), type<T>(), image[v].data());
     return image;
 }
 
