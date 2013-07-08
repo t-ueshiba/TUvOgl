@@ -65,6 +65,8 @@ MyCanvasPane::repaintUnderlay()
 	glDrawBuffer(GL_BACK_LEFT);
 	glNewList(1, GL_COMPILE_AND_EXECUTE);
     }
+    else
+	glDrawBuffer(GL_BACK);
 
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_LINE_STRIP);
