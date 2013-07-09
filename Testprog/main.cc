@@ -65,9 +65,7 @@ MyCanvasPane::repaintUnderlay()
 	glDrawBuffer(GL_BACK_LEFT);
 	glNewList(1, GL_COMPILE_AND_EXECUTE);
     }
-    else
-	glDrawBuffer(GL_BACK);
-
+    
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_LINE_STRIP);
       glColor3f(1.0, 0.0, 0.0);
@@ -133,6 +131,8 @@ MyCmdWindow::MyCmdWindow(App& parentApp, const char* name,
     _menu.place(0, 0, 1, 1);
     _canvas.place(0, 1, 1, 1);
     show();
+
+    _canvas.repaintUnderlay();
 }
 
 void

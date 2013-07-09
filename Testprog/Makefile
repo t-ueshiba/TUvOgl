@@ -18,7 +18,7 @@ endif
 CPPFLAGS	= #-DSTEREO
 CFLAGS		= -g
 NVCCFLAGS	= -g
-ifeq ($(CCC), icpc)
+ifeq ($(CXX), icpc)
   CFLAGS	= -O3
   NVCCFLAGS	= -O		# -O2以上にするとコンパイルエラーになる．
   ifeq ($(OSTYPE), darwin)
@@ -31,7 +31,7 @@ ifeq ($(CCC), icpc)
 endif
 CCFLAGS		= $(CFLAGS)
 
-LINKER		= $(CCC)
+LINKER		= $(CXX)
 
 #########################
 #  Macros set by mkmf	#
