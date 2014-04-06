@@ -6,11 +6,11 @@
 #################################
 DEST		= $(PREFIX)/lib
 INCDIR		= $(PREFIX)/include
-INCDIRS		= -I. -I$(PREFIX)/include
+INCDIRS		= -I$(X11HOME)/include -I$(PREFIX)/include
 
 NAME		= $(shell basename $(PWD))
 
-CPPFLAGS	=
+CPPFLAGS	= -DNDEBUG
 CFLAGS		= -g
 NVCCFLAGS	= -g
 ifeq ($(CXX), icpc)
@@ -57,11 +57,12 @@ include $(PROJECT)/lib/l.mk
 OglDC.o: TU/v/OglDC.h /usr/local/include/TU/v/CanvasPaneDC3.h \
 	/usr/local/include/TU/v/CanvasPaneDC.h /usr/local/include/TU/v/XDC.h \
 	/usr/local/include/TU/v/DC.h /usr/local/include/TU/Geometry++.h \
-	/usr/local/include/TU/iterator.h /usr/local/include/TU/functional.h \
 	/usr/local/include/TU/Vector++.h /usr/local/include/TU/Array++.h \
-	/usr/local/include/TU/types.h /usr/local/include/TU/mmInstructions.h \
+	/usr/local/include/TU/iterator.h /usr/local/include/TU/functional.h \
+	/usr/local/include/TU/mmInstructions.h \
 	/usr/local/include/TU/Minimize.h /usr/local/include/TU/Image++.h \
-	/usr/local/include/TU/Manip.h /usr/local/include/TU/v/Colormap.h \
+	/usr/local/include/TU/types.h /usr/local/include/TU/Manip.h \
+	/usr/local/include/TU/v/Colormap.h \
 	/usr/local/include/TU/v/CanvasPane.h /usr/local/include/TU/v/TUv++.h \
 	/usr/local/include/TU/List.h /usr/local/include/TU/v/Widget-Xaw.h \
 	/usr/local/include/TU/v/Menu.h /usr/local/include/TU/v/DC3.h

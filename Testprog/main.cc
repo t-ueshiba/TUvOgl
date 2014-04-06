@@ -124,8 +124,8 @@ MyCmdWindow::MyCmdWindow(App& parentApp, const char* name,
 			 u_int resolution,
 			 u_int underlayCmapDim, u_int overlayCmapDim,
 			 double parallax)
-    :CmdWindow(parentApp, name, vinfo, mode,
-		  resolution, underlayCmapDim, overlayCmapDim),
+    :CmdWindow(parentApp, name, vinfo,
+	       mode, resolution, underlayCmapDim, overlayCmapDim),
      _menu(*this, MainMenu), _canvas(*this, parallax)
 {
     _menu.place(0, 0, 1, 1);
@@ -201,8 +201,8 @@ main(int argc, char* argv[])
 	return 1;
     }
     
-    v::MyCmdWindow	myWin0(vapp, "OpenGL test", vinfo,
-			       v::Colormap::RGBColor, 16, 0, 0, parallax);
+    v::MyCmdWindow	myWin(vapp, "OpenGL test", vinfo,
+			      v::Colormap::RGBColor, 256, 0, 0, parallax);
     vapp.run();
 
     cerr << "Loop exited!" << endl;
