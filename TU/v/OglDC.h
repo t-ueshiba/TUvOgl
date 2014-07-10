@@ -27,8 +27,8 @@
  *  
  *  $Id: OglDC.h,v 1.1 2012-09-15 05:02:27 ueshiba Exp $
  */
-#ifndef __TUvOglDC_h
-#define __TUvOglDC_h
+#ifndef __TU_V_OGLDC_H
+#define __TU_V_OGLDC_H
 
 #include "TU/v/CanvasPaneDC3.h"
 #include <GL/glx.h>
@@ -87,4 +87,4 @@ OglDC::makeCurrent() const
  
 }
 }
-#endif	// !__TUvOglDC_h
+#endif	// !__TU_V_OGLDC_H
