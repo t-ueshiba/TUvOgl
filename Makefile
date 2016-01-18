@@ -99,6 +99,7 @@ EXTHDRS		= /usr/local/include/TU/Array++.h \
 		/usr/local/include/TU/simd/shift_iterator.h \
 		/usr/local/include/TU/simd/simd.h \
 		/usr/local/include/TU/simd/store_iterator.h \
+		/usr/local/include/TU/simd/transform.h \
 		/usr/local/include/TU/simd/type_traits.h \
 		/usr/local/include/TU/simd/vec.h \
 		/usr/local/include/TU/simd/zero.h \
@@ -181,6 +182,7 @@ OglDC.o: TU/v/OglDC.h /usr/local/include/TU/v/CanvasPaneDC3.h \
 	/usr/local/include/TU/simd/misc.h \
 	/usr/local/include/TU/simd/intel/shuffle.h \
 	/usr/local/include/TU/simd/intel/svml.h \
+	/usr/local/include/TU/simd/transform.h \
 	/usr/local/include/TU/simd/load_iterator.h \
 	/usr/local/include/TU/simd/store_iterator.h \
 	/usr/local/include/TU/simd/cvtdown_iterator.h \
