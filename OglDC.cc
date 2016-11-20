@@ -48,10 +48,9 @@ template <>		  inline GLenum type<float>()	{return GL_FLOAT;}
 /************************************************************************
 *  class OglDC								*
 ************************************************************************/
-OglDC::OglDC(CanvasPane& parentCanvasPane, u_int w, u_int h,
-	     u_int mul, u_int div)
-    :CanvasPaneDC(parentCanvasPane, w, h, mul, div),
-     CanvasPaneDC3(parentCanvasPane, w, h, mul, div),
+OglDC::OglDC(CanvasPane& parentCanvasPane, u_int w, u_int h, float zoom)
+    :CanvasPaneDC(parentCanvasPane, w, h, zoom),
+     CanvasPaneDC3(parentCanvasPane, w, h, zoom),
      _ctx(glXCreateContext(colormap().display(),
 			   (XVisualInfo*)&(colormap().vinfo()), 0, True)),
      _nurbsRenderer(gluNewNurbsRenderer())
@@ -67,9 +66,9 @@ OglDC::~OglDC()
 }
 
 DC&
-OglDC::setSize(u_int width, u_int height, u_int mul, u_int div)
+OglDC::setSize(u_int width, u_int height, float zoom)
 {
-    CanvasPaneDC::setSize(width, height, mul, div);
+    CanvasPaneDC::setSize(width, height, zoom);
     return setViewport();
 }
 
