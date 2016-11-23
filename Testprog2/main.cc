@@ -111,9 +111,9 @@ class MyCmdWindow : public CmdWindow
 		const Image<BGR>&	image,
 		const XVisualInfo*	vinfo,
 		Colormap::Mode		mode,
-		u_int			resolution,
-		u_int			underlayCmapDim,
-		u_int			overlayCmapDim)		;
+		size_t			resolution,
+		size_t			underlayCmapDim,
+		size_t			overlayCmapDim)		;
 
     virtual void	callback(CmdId, CmdVal)			;
     
@@ -125,8 +125,8 @@ class MyCmdWindow : public CmdWindow
 MyCmdWindow::MyCmdWindow(App& parentApp, const char* name,
 			 const Image<BGR>& image,
 			 const XVisualInfo* vinfo, Colormap::Mode mode,
-			 u_int resolution,
-			 u_int underlayCmapDim, u_int overlayCmapDim)
+			 size_t resolution,
+			 size_t underlayCmapDim, size_t overlayCmapDim)
     :CmdWindow(parentApp, name, vinfo, mode,
 	       resolution, underlayCmapDim, overlayCmapDim),
      _menu(*this, MainMenu), _canvas(*this, image)

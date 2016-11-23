@@ -107,9 +107,9 @@ class MyCmdWindow : public CmdWindow
 		const char*		name,
 		const XVisualInfo*	vinfo,
 		Colormap::Mode		mode,
-		u_int			resolution,
-		u_int			underlayCmapDim,
-		u_int			overlayCmapDim,
+		size_t			resolution,
+		size_t			underlayCmapDim,
+		size_t			overlayCmapDim,
 		double			parallax)		;
 
     virtual void	callback(CmdId, CmdVal)			;
@@ -121,8 +121,8 @@ class MyCmdWindow : public CmdWindow
 
 MyCmdWindow::MyCmdWindow(App& parentApp, const char* name,
 			 const XVisualInfo* vinfo, Colormap::Mode mode,
-			 u_int resolution,
-			 u_int underlayCmapDim, u_int overlayCmapDim,
+			 size_t resolution,
+			 size_t underlayCmapDim, size_t overlayCmapDim,
 			 double parallax)
     :CmdWindow(parentApp, name, vinfo,
 	       mode, resolution, underlayCmapDim, overlayCmapDim),

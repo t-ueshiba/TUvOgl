@@ -45,10 +45,10 @@ class OglDC : public CanvasPaneDC3
 {
   public:
     OglDC(CanvasPane& parentCanvasPane,
-	  u_int width=0, u_int height=0, float zoom=1)			;
+	  size_t width=0, size_t height=0, float zoom=1)		;
     virtual		~OglDC()					;
     
-    virtual DC&	setSize(u_int width, u_int height, float zoom)		;
+    virtual DC&	setSize(size_t width, size_t height, float zoom)	;
     virtual DC3&	setInternal(int	   u0,	 int	v0,
 				    double ku,	 double kv,
 				    double near, double far=0.0)	;
