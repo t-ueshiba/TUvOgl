@@ -162,10 +162,8 @@ OglDC::getExternal(Point3d& t, Matrix33d& Rt) const
     Rt[2][0] = matrix[0][2];
     Rt[2][1] = matrix[1][2];
     Rt[2][2] = matrix[2][2];
-    t[0] = -matrix[3][0];
-    t[1] = -matrix[3][1];
-    t[2] = -matrix[3][2];
-    t *= Rt;
+    Vector3d	tmp = {-matrix[3][0], -matrix[3][1], -matrix[3][2]};
+    t = tmp * Rt;
     
     return *this;
 }
@@ -247,7 +245,7 @@ OglDC::getImage() const
     
     for (int v = 0; v < image.height(); ++v)
 	glReadPixels(0, image.height() - 1 - v, image.width(), 1,
-		     format<T>(), type<T>(), image[v].data());
+		     format<T>(), type<T>(), image[v].begin());
     return image;
 }
 
