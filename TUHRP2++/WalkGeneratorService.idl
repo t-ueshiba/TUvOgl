@@ -1,0 +1,165 @@
+module OpenHRP
+{
+  interface WalkGeneratorService
+  {
+    /***********************************
+     *
+     *         Relative Motion
+     *
+     ***********************************/
+
+    /**
+     * @brief Set the Target Position 
+     * Function returns upon the robots arrival at destination. Must not be used in the real-time part of a plugin
+     * @param x x position[m]
+     * @param y y position[m]
+     * @param th roation angle around Z-axis[rad]
+     */
+    void setTargetPos(in double x, in double y, in double th);
+
+    /**
+     * @brief Set the Target Position without waiting for sequence
+     * interpolation to finish. Takes time depending on distance so can not be used in the real-time part of a plugin.
+     * @param x x position[m]
+     * @param y y position[m]
+     * @param th roation angle around Z-axis[rad]
+     */
+    void setTargetPosNoWait(in double x, in double y, in double th);
+
+    /**
+     * @brief Set Arc
+     * Function returns upon robots arrival at destination. Must not be used in real-time part of plugin.
+     * @param x x position[m]
+     * @param y y position[m]
+     * @param th roation angle around Z-axis[rad]
+     */
+    void setArc(in double x, in double y, in double th);
+
+    /**
+     * @brief Set Arc without waiting for sequence interpolation to finish. Takes time depending on the distance so can not be used in the real-time part of a plugin.
+     * @param x x position[m]
+     * @param y y position[m]
+     * @param th roation angle around Z-axis[rad]
+     */
+    void setArcNoWait(in double x, in double y, in double th);
+
+    /**
+     * @brief Set the Right foot Position
+     * Function returns upon robots arrival at destination. Must not be used in real-time part of plugin.
+     * @param x x position[m]
+     * @param y y position[m]
+     * @param th roation angle around Z-axis[rad]
+     */
+    void setRfootPos(in double x, in double y, in double th);
+
+    /**
+     * @brief Set the Right foot Position without waiting for sequence interpolation to finish. Takes time depending on the distance so can not be used in the real-time part of a plugin.
+     * @param x x position[m]
+     * @param y y position[m]
+     * @param th roation angle around Z-axis[rad]
+     */
+    void setRfootPosNoWait(in double x, in double y, in double th);
+
+    /**
+     * @brief Set the Left foot Position
+     * Function returns upon robots arrival at destination. Must not be used in real-time part of plugin.
+     * @param x x position[m]
+     * @param y y position[m]
+     * @param th roation angle around Z-axis[rad]
+     */
+    void setLfootPos(in double x, in double y, in double th);
+
+    /**
+     * @brief Set the Left foot Position without waiting for sequence interpolation to finish. Takes time depending on the distance so can not be used in the real-time part of a plugin.
+     * @param x x position[m]
+     * @param y y position[m]
+     * @param th roation angle around Z-axis[rad]
+     */
+    void setLfootPosNoWait(in double x, in double y, in double th);
+
+
+    /************************************
+     *
+     *        Walk Start/Stop
+     *
+     ************************************/
+    /**
+     * @brief Stop Walking
+     * Function returns when sequence interpolation has finished and robot has halted. Must not be used in real-time part of plugin.
+     */
+    void stopWalking();
+
+    /**
+     * @brief Wait for robot to arrive at designated goal. Returns when robot has come to a complete stop. Must not be used in real-time part of plugin.
+     */
+    void waitArrival();
+
+    /************************************
+     *
+     *        Stepping
+     *
+     ************************************/
+    /**
+     * @brief Start Stepping
+     * Function returns immediately so can be used in real-time part of plugin.
+     */
+    void startStepping();
+
+    /**
+     * @brief Stop Stepping
+     * Function returns only after robot has come to a complete stop. Function can not be used in real-time of plugin.
+     */
+    void stopStepping();
+
+    /**
+     * @brief Set parameter which make robot walk forwards. 
+     * Function returns immediately so can be used in real-time part of plugin.
+     * @param vx linear velocity along X-axis
+     * @param vy linear velocity along Y-axis
+     * @param vth angular velocity around Z-axis
+     */
+    void setWalkingVelocity(in double vx, in double vy, in double vth);
+
+    /**************************************
+     *
+     *         W a i s t
+     *
+     **************************************/
+    /**
+     * @brief Get Waist Velocity 
+     * Returns immediately so can be used in the real-time part of a plugin
+     * @param vx linear velocity along X-axis
+     * @param vy linear velocity along Y-axis
+     */
+    void getWaistVelocity(out double vx, out double vy);
+
+    /**
+     * @brief check if the robot is walking or not
+     * @return true if walking, false otherwise
+     */
+    boolean isWalking();
+
+    /**
+     * @brief walking type
+     */
+    enum WalkType { 
+      ODV, 
+      ARC 
+    };
+
+    /**
+     * @brief push a walking command into the command queue
+     * @param type walking type
+     * @param dx relative X position
+     * @param dy relative Y position
+     * @param dth relative rotation around Z
+     */
+    void pushWalkCommand(in WalkType type, in double dx, in double dy, 
+			    in double dth);
+
+    /**
+     * @brief execute walking commands in the command queue
+     */
+    void executeWalkCommands();
+  };
+};
