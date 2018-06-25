@@ -148,7 +148,7 @@ MyCmdWindow::callback(CmdId id, CmdVal val)
       {
 	std::ofstream	out("dump.pbm");
 	Image<RGB>	image = _canvas.dc().getImage<RGB>();
-	image.save(out, ImageBase::RGB_24);
+	image.save(out, ImageFormat::RGB_24);
       }
         break;
     }
