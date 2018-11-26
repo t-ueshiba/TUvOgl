@@ -24,11 +24,9 @@ include_directories(
 
 file(GLOB sources *.cc)
 add_library(${PROJECT_NAME} SHARED ${sources})
-target_link_libraries(
-    ${PROJECT_NAME}
-    TUv++
-    ${OPENGL_gl_LIBRARY})
+target_link_libraries(${PROJECT_NAME} TUv++ GLU GL)
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
 
 add_subdirectory(TU)
+add_subdirectory(Testprog)
