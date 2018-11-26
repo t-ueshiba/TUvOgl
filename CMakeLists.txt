@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 2.4)
-
 project(TUOgl++)
 
 if(COMMAND cmake_policy)
@@ -18,23 +17,18 @@ add_definitions(-DNDEBUG)
 find_package(X11 REQUIRED)
 find_package(OpenGL REQUIRED)
 include_directories(
-    .
+    ${PROJECT_SOURCE_DIR}
     ${CMAKE_INSTALL_PREFIX}/include
     ${OPENGL_INCLUDE_DIRS}
     ${X11_INCLUDE_DIRS})
 
 file(GLOB sources *.cc)
-
-add_library(TUOgl++ SHARED ${sources})
-
+add_library(${PROJECT_NAME} SHARED ${sources})
 target_link_libraries(
-    TUOgl++
+    ${PROJECT_NAME}
     TUv++
-    ${OPENGL_gl_LIBRARY}
-    ${X11_Xt_LIB}
-    ${X11_Xmu_LIB}
-    ${X11_LIBRARIES})
+    ${OPENGL_gl_LIBRARY})
 
-install(TARGETS TUOgl++ LIBRARY DESTINATION lib)
+install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
 
 add_subdirectory(TU)
