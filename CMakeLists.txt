@@ -22,6 +22,8 @@ include_directories(
     ${OPENGL_INCLUDE_DIRS}
     ${X11_INCLUDE_DIRS})
 
+link_directories(${CMAKE_INSTALL_PREFIX}/lib)
+
 file(GLOB sources *.cc)
 add_library(${PROJECT_NAME} SHARED ${sources})
 target_link_libraries(${PROJECT_NAME} TUv++ GLU GL)
