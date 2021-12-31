@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(TUOgl++)
+project(TUvOgl)
 
 if(COMMAND cmake_policy)
     cmake_policy(SET CMP0003 NEW)
@@ -30,7 +30,7 @@ link_directories(${CMAKE_INSTALL_PREFIX}/lib)
 
 file(GLOB sources *.cc)
 add_library(${PROJECT_NAME} SHARED ${sources})
-target_link_libraries(${PROJECT_NAME} TUv++ GLU GL)
+target_link_libraries(${PROJECT_NAME} TUv GLU GL)
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
 
