@@ -16,13 +16,16 @@ if(APPLE)
   set(MACOSX_RPATH TRUE)
 endif()
 
-find_package(X11 REQUIRED)
+
 find_package(OpenGL REQUIRED)
+find_package(X11 REQUIRED)
+find_package(Boost REQUIRED)
 include_directories(
     ${PROJECT_SOURCE_DIR}
     ${CMAKE_INSTALL_PREFIX}/include
     ${OPENGL_INCLUDE_DIRS}
-    ${X11_INCLUDE_DIRS})
+    ${X11_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS})
 
 link_directories(${CMAKE_INSTALL_PREFIX}/lib)
 
